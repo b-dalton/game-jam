@@ -1,16 +1,34 @@
 import React from "react";
+import { GameStageEnum, useGameState } from "../game-state";
 import { EventDialog } from "./EventDialog";
 
 import { GamePhase } from "./GamePhase";
 import StartScreen from "./StartScreen";
 
-export const GameWindow = (props) => {
+export const GameWindow = () => {
+  const { gameStage, pauseGame, startGame } = useGameState();
+
   return (
     <div>
-      <StartScreen />
+      {gameStage === GameStageEnum.LAUNCH && <StartScreen />}
 
-      <EventDialog />
-      <GamePhase />
+      {gameStage === GameStageEnum.RUNNING && (
+        <>
+          <GamePhase />
+          <EventDialog />
+          <button onClick={pauseGame}>Pause game</button>
+        </>
+      )}
+
+      {gameStage === GameStageEnum.PAUSED && (
+        <>
+          <GamePhase />
+          <div>Paused...</div>
+          <button onClick={startGame}>Resume game</button>
+        </>
+      )}
+
+      {gameStage === GameStageEnum.FINISHED && <div>End of game!</div>}
     </div>
   );
 };

@@ -1,6 +1,14 @@
 import React, { useCallback, useContext, useState } from "react";
 
+export const GameStageEnum = {
+  LAUNCH: "launch",
+  RUNNING: "running",
+  PAUSED: "paused",
+  FINISHED: "finished",
+};
+
 export const GameStateContext = React.createContext({
+  gameStage: GameStageEnum.LAUNCH,
   gameTime: 0,
   tickTime: () => {},
   resetTime: () => {},
@@ -8,12 +16,6 @@ export const GameStateContext = React.createContext({
   startEvent: () => {},
   completeEvent: () => {},
 });
-
-export const GameStageEnum = {
-  RUNNING: "running",
-  PAUSED: "paused",
-  FINISHED: "finished",
-};
 
 const useGameTime = (gameStage) => {
   const [gameTime, setGameTime] = useState(0);
@@ -36,7 +38,7 @@ const useGameTime = (gameStage) => {
 };
 
 export const GameStateProvider = ({ children }) => {
-  const [gameStage, setGameStage] = useState(GameStageEnum.FINISHED);
+  const [gameStage, setGameStage] = useState(GameStageEnum.LAUNCH);
   const { gameTime, tickTime, resetTime } = useGameTime(gameStage);
   const [activeEvent, setActiveEvent] = useState(null);
 
@@ -55,13 +57,23 @@ export const GameStateProvider = ({ children }) => {
     }
   }, [gameStage]);
 
+  const startGame = useCallback(() => {
+    setGameStage(GameStageEnum.RUNNING);
+  }, []);
+
+  const pauseGame = useCallback(() => {
+    setGameStage(GameStageEnum.PAUSED);
+  }, []);
+
   return (
     <GameStateContext.Provider
       value={{
         gameTime,
         tickTime,
         resetTime,
-        setGameStage,
+        gameStage,
+        startGame,
+        pauseGame,
         activeEvent,
         startEvent,
         completeEvent,

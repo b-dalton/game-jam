@@ -1,14 +1,17 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { useGameState, GameStageEnum } from "../game-state";
-import "./StartScreen.css"
+import { useGameState } from "../game-state";
+import "./StartScreen.css";
 
 const StartScreen = () => {
-  const { setGameStage } = useGameState();
+  const { startGame } = useGameState();
+
   return (
     <div className="start-screen">
       <h1>Welcome to the Made Tech Simulator!</h1>
-      <Button variant="contained" onClick={() => setGameStage(GameStageEnum.RUNNING)}>Start your own Tech Empire!</Button>
+      <Button variant="contained" onClick={startGame}>
+        Start your own Tech Empire!
+      </Button>
     </div>
   );
 };
