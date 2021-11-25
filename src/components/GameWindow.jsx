@@ -9,8 +9,7 @@ export const GameWindow = (props) => {
     <div>
       <StartScreen />
       <GamePhase />
-
-      <ResetButton />
+      {/* <ResetButton /> */}
     </div>
   );
 };
