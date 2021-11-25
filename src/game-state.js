@@ -4,6 +4,9 @@ export const GameStateContext = React.createContext({
   gameTime: 0,
   tickTime: () => {},
   resetTime: () => {},
+  activeEvent: null,
+  startEvent: () => {},
+  completeEvent: () => {},
 });
 
 export const GameStageEnum = {
@@ -16,7 +19,7 @@ const useGameTime = (gameStage) => {
   const [gameTime, setGameTime] = useState(0);
 
   const tickTime = useCallback(() => {
-    console.log(gameStage)
+    console.log(gameStage);
     if (gameStage === GameStageEnum.RUNNING) {
       setGameTime(gameTime + 1);
     }
@@ -36,6 +39,15 @@ const useGameTime = (gameStage) => {
 export const GameStateProvider = ({ children }) => {
   const [gameStage, setGameStage] = useState(GameStageEnum.FINISHED);
   const { gameTime, tickTime, resetTime } = useGameTime(gameStage);
+  const [activeEvent, setActiveEvent] = useState(null);
+
+  const startEvent = useCallback((event) => {
+    setActiveEvent(event);
+  }, []);
+
+  const completeEvent = useCallback(() => {
+    setActiveEvent(null);
+  }, []);
 
   return (
     <GameStateContext.Provider
@@ -44,6 +56,9 @@ export const GameStateProvider = ({ children }) => {
         tickTime,
         resetTime,
         setGameStage,
+        activeEvent,
+        startEvent,
+        completeEvent,
       }}
     >
       {children}
