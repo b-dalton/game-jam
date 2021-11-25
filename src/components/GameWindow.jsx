@@ -1,7 +1,6 @@
 import React from "react";
 
 import { GamePhase } from "./GamePhase";
-import { ResetButton } from "./ResetButton";
 import StartScreen from "./StartScreen";
 
 export const GameWindow = (props) => {
@@ -9,7 +8,6 @@ export const GameWindow = (props) => {
     <div>
       <StartScreen />
       <GamePhase />
-      {/* <ResetButton /> */}
     </div>
   );
 };
