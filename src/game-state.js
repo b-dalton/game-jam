@@ -4,7 +4,7 @@ export const GameStateContext = React.createContext({});
 
 export const GameStateProvider = ({ children }) => {
   const [count, setCount] = useState(0);
-  const updateCount = useCallback(() => {
+  const incrementCount = useCallback(() => {
     setCount(count + 1);
   }, [count]);
 
@@ -12,7 +12,8 @@ export const GameStateProvider = ({ children }) => {
     <GameStateContext.Provider
       value={{
         count,
-        updateCount,
+        incrementCount,
+        setCount,
       }}
     >
       {children}

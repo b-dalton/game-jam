@@ -3,11 +3,11 @@ import { useGameState } from "../game-state";
 
 export const BaseGameLoop = () => {
   const timerRef = useRef();
-  const { updateCount } = useGameState();
+  const { incrementCount } = useGameState();
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      updateCount();
+      incrementCount();
     }, 1000);
 
     return () => {
