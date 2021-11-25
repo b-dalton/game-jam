@@ -1,14 +1,18 @@
-import React, { useContext } from "react";
-// account property starts at 0
-// context global state
+import React, { useCallback, useContext, useState } from "react";
 
 export const GameStateContext = React.createContext({});
 
 export const GameStateProvider = ({ children }) => {
+  const [count, setCount] = useState(0);
+  const updateCount = useCallback(() => {
+    setCount(count + 1);
+  }, [count]);
+
   return (
     <GameStateContext.Provider
       value={{
-        count: 0,
+        count,
+        updateCount,
       }}
     >
       {children}
