@@ -1,12 +1,12 @@
 const events = [
   {
     name: "Some event",
-    condition: ({ gameTime }) => gameTime > 0 && gameTime < 10000,
+    condition: ({ gameTime }) => gameTime >= 0 && gameTime < 10000,
   },
 ];
 
 export const getRandomEvent = (gameTime) => {
-  const shouldFindEvent = Math.random() < 1 ? true : false;
+  const shouldFindEvent = Math.random() < 0.02 ? true : false;
 
   if (!shouldFindEvent) {
     return null;

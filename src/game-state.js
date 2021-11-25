@@ -19,7 +19,6 @@ const useGameTime = (gameStage) => {
   const [gameTime, setGameTime] = useState(0);
 
   const tickTime = useCallback(() => {
-    console.log(gameStage);
     if (gameStage === GameStageEnum.RUNNING) {
       setGameTime(gameTime + 1);
     }
@@ -41,13 +40,20 @@ export const GameStateProvider = ({ children }) => {
   const { gameTime, tickTime, resetTime } = useGameTime(gameStage);
   const [activeEvent, setActiveEvent] = useState(null);
 
-  const startEvent = useCallback((event) => {
-    setActiveEvent(event);
-  }, []);
+  const startEvent = useCallback(
+    (event) => {
+      if (gameStage === GameStageEnum.RUNNING) {
+        setActiveEvent(event);
+      }
+    },
+    [gameStage]
+  );
 
   const completeEvent = useCallback(() => {
-    setActiveEvent(null);
-  }, []);
+    if (gameStage === GameStageEnum.RUNNING) {
+      setActiveEvent(null);
+    }
+  }, [gameStage]);
 
   return (
     <GameStateContext.Provider
