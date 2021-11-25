@@ -3,16 +3,17 @@ import { useGameState } from "../game-state";
 
 export const BaseGameLoop = () => {
   const timerRef = useRef();
-  const { incrementCount } = useGameState();
+  const { tickTime } = useGameState();
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      incrementCount();
+      tickTime();
     }, 1000);
 
     return () => {
       clearInterval(timerRef.current);
     };
   });
+
   return null;
 };

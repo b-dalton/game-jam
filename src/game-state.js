@@ -1,19 +1,38 @@
 import React, { useCallback, useContext, useState } from "react";
 
-export const GameStateContext = React.createContext({});
+export const GameStateContext = React.createContext({
+  gameTime: 0,
+  tickTime: () => {},
+  resetTime: () => {},
+});
+
+const useGameTime = () => {
+  const [gameTime, setGameTime] = useState(0);
+
+  const tickTime = useCallback(() => {
+    setGameTime(gameTime + 1);
+  }, [gameTime]);
+
+  const resetTime = useCallback(() => {
+    setGameTime(0);
+  }, []);
+
+  return {
+    gameTime,
+    tickTime,
+    resetTime,
+  };
+};
 
 export const GameStateProvider = ({ children }) => {
-  const [count, setCount] = useState(0);
-  const incrementCount = useCallback(() => {
-    setCount(count + 1);
-  }, [count]);
+  const { gameTime, tickTime, resetTime } = useGameTime();
 
   return (
     <GameStateContext.Provider
       value={{
-        count,
-        incrementCount,
-        setCount,
+        gameTime,
+        tickTime,
+        resetTime,
       }}
     >
       {children}
