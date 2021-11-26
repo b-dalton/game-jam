@@ -23,6 +23,7 @@ const initialState = {
   signedContracts: [],
   companyName: null,
   techStack: null,
+  logo: null,
 };
 
 const reducer = (state, action) => {
@@ -50,6 +51,7 @@ const reducer = (state, action) => {
         gameStage: GameStageEnum.RUNNING,
         companyName: action.payload.companyName,
         techStack: action.payload.techStack,
+        logo: action.payload.logo,
       };
     case "pauseGame":
       return {
