@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useGameState } from "../contexts/GameState";
+import { getPhaseState } from "../lib/game-phase";
 
 const contracts = [
   {
@@ -17,7 +18,7 @@ const contracts = [
     value: 950,
     recurringValue: 25,
     requiredTeamSize: 1,
-    isActive: () => true,
+    condition: () => true,
     action: (state) => {
       return {
         ...state,
@@ -35,8 +36,12 @@ const contracts = [
       "You heard us right, NASA needs an exciting team to help us build our new lunar base",
     value: 15000,
     recurringValue: 150,
-    requiredTeamSize: 1,
-    isActive: () => true,
+    requiredTeamSize: 25,
+    condition: ({ gameTime }) => {
+      const { index } = getPhaseState(gameTime);
+
+      return index >= 3;
+    },
     action: (state) => {
       return {
         ...state,
@@ -76,7 +81,7 @@ export const Marketplace = () => {
               <ListItem disablePadding>
                 <ListItemButton
                   disabled={
-                    !item.isActive(state) ||
+                    !item.condition(state) ||
                     freeEmployees < item.requiredTeamSize
                   }
                   onClick={() => {

@@ -30,17 +30,17 @@ export const GamePhase = () => {
 
   return (
     <div>
-    <div>
-      <p>
-        Time: {minutesIntoGame} minutes {gameTime % 60} seconds (phase:{" "}
-        {gamePhase})
-      </p>
-      <p>Cash: ${currency}</p>
-    </div>
-    <div>
-      <p>Company Name: {companyName}</p>
-      <p>Tech Stack: {techStack}</p>
-    </div>
+      <div>
+        <p>
+          Time: {minutesIntoGame} minutes {gameTime % 60} seconds (phase:{" "}
+          {gamePhase})
+        </p>
+        <p>Cash: ${currency}</p>
+      </div>
+      <div>
+        <p>Company Name: {companyName}</p>
+        <p>Tech Stack: {techStack}</p>
+      </div>
     </div>
   );
 };

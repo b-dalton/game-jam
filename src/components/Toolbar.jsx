@@ -116,7 +116,9 @@ export const Toolbar = () => {
           onClick={() =>
             dispatch({
               type:
-                gameStage === GameStageEnum.RUNNING ? "pauseGame" : "startGame",
+                gameStage === GameStageEnum.RUNNING
+                  ? "pauseGame"
+                  : "resumeGame",
             })
           }
         >

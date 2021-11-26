@@ -1,4 +1,12 @@
-import { Container, Box, Tabs, Tab } from "@mui/material";
+import {
+  Container,
+  Box,
+  Tabs,
+  Tab,
+  Button,
+  Typography,
+  Stack,
+} from "@mui/material";
 import React, { useState } from "react";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
 import { EventDialog } from "./EventDialog";
@@ -28,6 +36,7 @@ const TabPanel = ({ children, value, index, ...other }) => {
 export const GameWindow = () => {
   const {
     state: { gameStage },
+    dispatch,
   } = useGameState();
 
   const [tabIndex, setTabIndex] = useState(0);
@@ -96,7 +105,34 @@ export const GameWindow = () => {
       {gameStage === GameStageEnum.PAUSED && (
         <>
           <Toolbar />
-          <div>Paused...</div>
+
+          <Stack
+            direction="column"
+            spacing={3}
+            sx={{
+              maxWidth: "300px",
+              margin: "0 auto",
+            }}
+          >
+            <Typography variant="h6" component="h2">
+              Pause menu
+            </Typography>
+
+            <Button
+              onClick={() => {
+                dispatch({ type: "resumeGame" });
+              }}
+            >
+              Resume game
+            </Button>
+            <Button
+              onClick={() => {
+                dispatch({ type: "resetGame" });
+              }}
+            >
+              Quit game
+            </Button>
+          </Stack>
         </>
       )}
 

@@ -48,11 +48,18 @@ const reducer = (state, action) => {
       return {
         ...state,
         gameStage: GameStageEnum.RUNNING,
+        companyName: action.payload.companyName,
+        techStack: action.payload.techStack,
       };
     case "pauseGame":
       return {
         ...state,
         gameStage: GameStageEnum.PAUSED,
+      };
+    case "resumeGame":
+      return {
+        ...state,
+        gameStage: GameStageEnum.RUNNING,
       };
     case "tickTime":
       if (state.gameStage !== GameStageEnum.RUNNING) {
@@ -61,21 +68,21 @@ const reducer = (state, action) => {
 
       const happinessMultiplier = state.employeeHappiness / 10;
 
-      return {
+      const stateAfterTick = {
         ...state,
         gameTime: state.gameTime + 1,
         currency: state.currency + state.currencyChange * happinessMultiplier,
         employeeHappiness:
           state.employeeHappiness + state.employeeHappinessChange,
       };
-    case "resetTime":
+
+      window.localStorage.setItem("gameState", JSON.stringify(stateAfterTick));
+
+      return stateAfterTick;
+    case "resetGame":
+      window.localStorage.removeItem("gameState");
+
       return initialState;
-    case "setUpCompany":
-      return {
-        ...state,
-        companyName: action.payload.companyName,
-        techStack: action.payload.techStack,
-      };
     case "purchaseItem":
       if (state.gameStage !== GameStageEnum.RUNNING) {
         return state;
@@ -97,8 +104,18 @@ const reducer = (state, action) => {
   }
 };
 
+const getInitialState = () => {
+  const storedGameState = window.localStorage.getItem("gameState");
+
+  if (storedGameState) {
+    return JSON.parse(storedGameState);
+  }
+
+  return initialState;
+};
+
 export const GameStateProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, getInitialState());
 
   return (
     <GameStateContext.Provider

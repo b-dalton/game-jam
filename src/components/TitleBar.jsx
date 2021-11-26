@@ -18,7 +18,7 @@ export const TitleBar = () => {
         }}
       >
         <Typography variant="h4" component="h1">
-          Made Tech Simulator
+          Digital Agency Simulator
         </Typography>
         <Typography variant="h6" component="h2">
           Can you become an intergalactic tech provider?{" "}

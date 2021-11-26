@@ -1,5 +1,5 @@
 import React from "react";
-import EmailIcon from '@mui/icons-material/Email';
+import EmailIcon from "@mui/icons-material/Email";
 import { Badge } from "@mui/material";
 
 const EventEmail = ({ event }) => {
