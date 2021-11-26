@@ -16,6 +16,8 @@ const initialState = {
   currencyChange: 100,
   employeeHappiness: 5,
   employeeHappinessChange: -0.001,
+  employees: 1,
+  maximumEmployees: 5,
   activeEvent: null,
 };
 
