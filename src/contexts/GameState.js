@@ -26,8 +26,6 @@ const initialState = {
   companyName: null,
   techStack: null,
   logo: null,
-  decideBuyout: false,
-  decideCryptoInvestment: false
 };
 
 const reducer = (state, action) => {
@@ -105,13 +103,10 @@ const reducer = (state, action) => {
       return {
         ...action.payload.action(state),
       };
-    case "decideBuyout":
+    case "makeChoice":
+      console.log(action.payload)
       return {
-        decideBuyout: action.payload.decideBuyout
-      };
-    case "decideCryptoInvestment":
-      return {
-        decideCryptoInvestment: action.payload.decideCryptoInvestment
+        ...action.payload.event.action(state, action.payload.choice)
       };
     default:
       throw new Error(`Unexpected action type ${action.type}`);

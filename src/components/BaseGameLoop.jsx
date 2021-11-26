@@ -14,6 +14,7 @@ export const BaseGameLoop = () => {
       dispatch({ type: "tickTime" });
 
       const fixedEvent = getFixedEvent(state);
+      console.log({fixedEvent})
 
       if (fixedEvent) {
         dispatch({ type: "startEvent", payload: fixedEvent });
