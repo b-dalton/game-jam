@@ -29,7 +29,6 @@ export const GameWindow = () => {
       {gameStage === GameStageEnum.RUNNING && (
         <>
           <Toolbar />
-
           <EventDialog />
         </>
       )}
@@ -37,7 +36,6 @@ export const GameWindow = () => {
       {gameStage === GameStageEnum.PAUSED && (
         <>
           <Toolbar />
-
           <div>Paused...</div>
         </>
       )}
