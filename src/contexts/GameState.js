@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useReducer, useState } from "react";
+import React, { useContext, useReducer } from "react";
 
 export const GameStageEnum = {
   LAUNCH: "launch",
@@ -12,6 +12,8 @@ export const GameStateContext = React.createContext({});
 const initialState = {
   gameStage: GameStageEnum.LAUNCH,
   gameTime: 0,
+  currency: 1000,
+  currencyChange: 5,
   activeEvent: null,
 };
 
@@ -53,12 +55,10 @@ const reducer = (state, action) => {
       return {
         ...state,
         gameTime: state.gameTime + 1,
+        currency: state.currency + state.currencyChange,
       };
     case "resetTime":
-      return {
-        ...state,
-        gameTime: 0,
-      };
+      return initialState;
     default:
       throw new Error(`Unexpected action type ${action.type}`);
   }
