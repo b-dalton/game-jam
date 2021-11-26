@@ -3,10 +3,10 @@ import { useGameState } from "../contexts/GameState";
 import { Button } from "@mui/material";
 
 export const ResetButton = () => {
-  const { resetTime } = useGameState();
+  const { dispatch } = useGameState();
 
   return (
-    <Button variant="outlined" onClick={resetTime}>
+    <Button variant="outlined" onClick={() => dispatch({ type: "resetTime" })}>
       Reset
     </Button>
   );

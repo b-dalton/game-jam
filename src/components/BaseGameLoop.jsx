@@ -4,11 +4,14 @@ import { getRandomEvent } from "../lib/random-event";
 
 export const BaseGameLoop = () => {
   const timerRef = useRef();
-  const { gameTime, tickTime, startEvent, activeEvent } = useGameState();
+  const {
+    state: { gameTime, activeEvent },
+    dispatch,
+  } = useGameState();
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      tickTime();
+      dispatch({ type: "tickTime" });
 
       if (!activeEvent) {
         const event = getRandomEvent(gameTime);
@@ -17,7 +20,7 @@ export const BaseGameLoop = () => {
           return;
         }
 
-        startEvent(event);
+        dispatch({ type: "startEvent", payload: event });
       }
     }, 1000);
 

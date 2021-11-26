@@ -1,7 +1,10 @@
 import { useGameState } from "../contexts/GameState";
 
 export const EventDialog = () => {
-  const { activeEvent, completeEvent } = useGameState();
+  const {
+    state: { activeEvent },
+    dispatch,
+  } = useGameState();
 
   if (!activeEvent) {
     return null;
@@ -22,7 +25,9 @@ export const EventDialog = () => {
       }}
     >
       <p>EVENT: {activeEvent.name}</p>
-      <button onClick={completeEvent}>Continue</button>
+      <button onClick={() => dispatch({ type: "completeEvent" })}>
+        Continue
+      </button>
     </div>
   );
 };

@@ -4,12 +4,16 @@ import { useGameState } from "../contexts/GameState";
 import "./StartScreen.css";
 
 const StartScreen = () => {
-  const { startGame } = useGameState();
+  const { dispatch } = useGameState();
 
   return (
     <div className="start-screen">
       <h1>Welcome to the Made Tech Simulator!</h1>
-      <Button variant="contained" onClick={startGame}>
+
+      <Button
+        variant="contained"
+        onClick={() => dispatch({ type: "startGame" })}
+      >
         Start your own Tech Empire!
       </Button>
     </div>

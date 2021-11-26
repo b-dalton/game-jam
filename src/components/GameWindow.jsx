@@ -6,7 +6,10 @@ import { GamePhase } from "./GamePhase";
 import StartScreen from "./StartScreen";
 
 export const GameWindow = () => {
-  const { gameStage, pauseGame, startGame } = useGameState();
+  const {
+    state: { gameStage },
+    dispatch,
+  } = useGameState();
 
   return (
     <div>
@@ -16,7 +19,9 @@ export const GameWindow = () => {
         <>
           <GamePhase />
           <EventDialog />
-          <button onClick={pauseGame}>Pause game</button>
+          <button onClick={() => dispatch({ type: "pauseGame" })}>
+            Pause game
+          </button>
         </>
       )}
 
@@ -24,7 +29,9 @@ export const GameWindow = () => {
         <>
           <GamePhase />
           <div>Paused...</div>
-          <button onClick={startGame}>Resume game</button>
+          <button onClick={() => dispatch({ type: "startGame" })}>
+            Resume game
+          </button>
         </>
       )}
 

@@ -21,7 +21,9 @@ const secondsToFlooredMinutes = (seconds) => {
 };
 
 export const GamePhase = () => {
-  const { gameTime } = useGameState();
+  const {
+    state: { gameTime },
+  } = useGameState();
 
   const minutesIntoGame = secondsToFlooredMinutes(gameTime);
   const gamePhase = getPhaseName(minutesIntoGame);

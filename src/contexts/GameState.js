@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useReducer, useState } from "react";
 
 export const GameStageEnum = {
   LAUNCH: "launch",
@@ -7,76 +7,71 @@ export const GameStageEnum = {
   FINISHED: "finished",
 };
 
-export const GameStateContext = React.createContext({
+export const GameStateContext = React.createContext({});
+
+const initialState = {
   gameStage: GameStageEnum.LAUNCH,
   gameTime: 0,
-  tickTime: () => {},
-  resetTime: () => {},
   activeEvent: null,
-  startEvent: () => {},
-  completeEvent: () => {},
-});
+};
 
-const useGameTime = (gameStage) => {
-  const [gameTime, setGameTime] = useState(0);
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "startEvent":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
 
-  const tickTime = useCallback(() => {
-    if (gameStage === GameStageEnum.RUNNING) {
-      setGameTime(gameTime + 1);
-    }
-  }, [gameStage, gameTime]);
+      return {
+        ...state,
+        activeEvent: action.payload,
+      };
+    case "completeEvent":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
 
-  const resetTime = useCallback(() => {
-    setGameTime(0);
-  }, []);
+      return {
+        ...state,
+        activeEvent: null,
+      };
+    case "startGame":
+      return {
+        ...state,
+        gameStage: GameStageEnum.RUNNING,
+      };
+    case "pauseGame":
+      return {
+        ...state,
+        gameStage: GameStageEnum.PAUSED,
+      };
+    case "tickTime":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
 
-  return {
-    gameTime,
-    tickTime,
-    resetTime,
-  };
+      return {
+        ...state,
+        gameTime: state.gameTime + 1,
+      };
+    case "resetTime":
+      return {
+        ...state,
+        gameTime: 0,
+      };
+    default:
+      throw new Error(`Unexpected action type ${action.type}`);
+  }
 };
 
 export const GameStateProvider = ({ children }) => {
-  const [gameStage, setGameStage] = useState(GameStageEnum.LAUNCH);
-  const { gameTime, tickTime, resetTime } = useGameTime(gameStage);
-  const [activeEvent, setActiveEvent] = useState(null);
-
-  const startEvent = useCallback(
-    (event) => {
-      if (gameStage === GameStageEnum.RUNNING) {
-        setActiveEvent(event);
-      }
-    },
-    [gameStage]
-  );
-
-  const completeEvent = useCallback(() => {
-    if (gameStage === GameStageEnum.RUNNING) {
-      setActiveEvent(null);
-    }
-  }, [gameStage]);
-
-  const startGame = useCallback(() => {
-    setGameStage(GameStageEnum.RUNNING);
-  }, []);
-
-  const pauseGame = useCallback(() => {
-    setGameStage(GameStageEnum.PAUSED);
-  }, []);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <GameStateContext.Provider
       value={{
-        gameTime,
-        tickTime,
-        resetTime,
-        gameStage,
-        startGame,
-        pauseGame,
-        activeEvent,
-        startEvent,
-        completeEvent,
+        state,
+        dispatch,
       }}
     >
       {children}
@@ -86,5 +81,6 @@ export const GameStateProvider = ({ children }) => {
 
 export const useGameState = () => {
   const gameState = useContext(GameStateContext);
+
   return gameState;
 };
