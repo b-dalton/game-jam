@@ -30,12 +30,12 @@ const events = [
 
       return index === 1;
     },
-    joke: "lolololol, red bull for the winz 🚫☕️",
+    joke: "lolololol, red bull for the winz 🚫☕️. covfefe drinkers are n00bz",
     image: "coffee",
     action: (state) => {
       return {
         ...state,
-        currency: state.currency + 5000,
+        employeeHappiness: state.employeeHappiness - 1,
       };
     },
   },
