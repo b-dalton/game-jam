@@ -1,0 +1,27 @@
+.header {
+    background-color: orange;
+    padding: 1em;
+}
+
+.content {
+    display: flex;
+    font-size: 1.5em;
+}
+
+.clacker-image {
+    max-width: 12rem;
+    max-height: 12rem;
+}
+
+.comment {
+    display: flex;
+}
+
+.comment-user {
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.comment-body {
+    margin-top: 0;
+}
