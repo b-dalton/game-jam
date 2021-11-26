@@ -1,7 +1,6 @@
 import React from "react";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
 import { EventDialog } from "./EventDialog";
-
 import { GamePhase } from "./GamePhase";
 import StartScreen from "./StartScreen";
 

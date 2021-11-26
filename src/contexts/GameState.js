@@ -30,6 +30,7 @@ const useGameTime = (gameStage) => {
     setGameTime(0);
   }, []);
 
+  
   return {
     gameTime,
     tickTime,
@@ -41,7 +42,9 @@ export const GameStateProvider = ({ children }) => {
   const [gameStage, setGameStage] = useState(GameStageEnum.LAUNCH);
   const { gameTime, tickTime, resetTime } = useGameTime(gameStage);
   const [activeEvent, setActiveEvent] = useState(null);
-
+  const [companyName, setCompanyName] = useState("");
+	const [techStack, setTechStack] = useState("");
+  
   const startEvent = useCallback(
     (event) => {
       if (gameStage === GameStageEnum.RUNNING) {
@@ -65,6 +68,11 @@ export const GameStateProvider = ({ children }) => {
     setGameStage(GameStageEnum.PAUSED);
   }, []);
 
+  const setCompanyDetails = ({companyName, techStack}) => {
+		setCompanyName(companyName);
+		setTechStack(techStack);
+	};
+
   return (
     <GameStateContext.Provider
       value={{
@@ -77,6 +85,9 @@ export const GameStateProvider = ({ children }) => {
         activeEvent,
         startEvent,
         completeEvent,
+        companyName,
+				techStack,
+        setCompanyDetails,
       }}
     >
       {children}
