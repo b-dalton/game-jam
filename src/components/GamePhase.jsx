@@ -21,18 +21,20 @@ const secondsToFlooredMinutes = (seconds) => {
 };
 
 export const GamePhase = () => {
-  const { gameTime, companyName, techStack } = useGameState();
-  console.log("company name: ", companyName)
-  console.log("tech stack: ", techStack)
+  const {
+    state: { gameTime, currency, companyName, techStack },
+  } = useGameState();
 
   const minutesIntoGame = secondsToFlooredMinutes(gameTime);
   const gamePhase = getPhaseName(minutesIntoGame);
 
   return (
     <div>
-    <div>
-      Time: {minutesIntoGame} minutes {gameTime % 60} seconds (phase:{" "}
-      {gamePhase})
+      <p>
+        Time: {minutesIntoGame} minutes {gameTime % 60} seconds (phase:{" "}
+        {gamePhase})
+      </p>
+      <p>Cash: ${currency}</p>
     </div>
     <div>
       <p>Company Name: {companyName}</p>

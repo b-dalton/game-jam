@@ -1,28 +1,35 @@
+import { Container, Paper } from "@mui/material";
+import EventUI from "./EventUI/EventUI";
 import { useGameState } from "../contexts/GameState";
 
 export const EventDialog = () => {
-  const { activeEvent, completeEvent } = useGameState();
+  const {
+    state: { activeEvent },
+    dispatch,
+  } = useGameState();
 
   if (!activeEvent) {
     return null;
   }
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "10%",
-        left: "10%",
-        width: "80%",
-        height: "80%",
-        backgroundColor: "white",
-        boxShadow: "0 0 10px #888",
-        borderRadius: "10px",
-        padding: "20px",
+    <Container
+      sx={{
+        margin: "auto",
       }}
     >
-      <p>EVENT: {activeEvent.name}</p>
-      <button onClick={completeEvent}>Continue</button>
-    </div>
+      <Paper
+        elevation={2}
+        sx={{
+          padding: "2rem",
+        }}
+      >
+        {/* <p>EVENT: {activeEvent.name}</p> */}
+        <EventUI activeEvent={activeEvent} />
+        <button onClick={() => dispatch({ type: "completeEvent" })}>
+          Continue
+        </button>
+      </Paper>
+    </Container>
   );
 };

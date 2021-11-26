@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useContext, useReducer } from "react";
 
 export const GameStageEnum = {
   LAUNCH: "launch",
@@ -7,87 +7,83 @@ export const GameStageEnum = {
   FINISHED: "finished",
 };
 
-export const GameStateContext = React.createContext({
+export const GameStateContext = React.createContext({});
+
+const initialState = {
   gameStage: GameStageEnum.LAUNCH,
   gameTime: 0,
-  tickTime: () => {},
-  resetTime: () => {},
+  currency: 10000,
+  currencyChange: 100,
+  employeeHappiness: 5,
   activeEvent: null,
-  startEvent: () => {},
-  completeEvent: () => {},
-});
+  companyName: null,
+  techStack: null
+};
 
-const useGameTime = (gameStage) => {
-  const [gameTime, setGameTime] = useState(0);
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "startEvent":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
+      const newState = action.payload.action(state);
 
-  const tickTime = useCallback(() => {
-    if (gameStage === GameStageEnum.RUNNING) {
-      setGameTime(gameTime + 1);
-    }
-  }, [gameStage, gameTime]);
+      return {
+        ...newState,
+        activeEvent: action.payload,
+      };
+    case "completeEvent":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
 
-  const resetTime = useCallback(() => {
-    setGameTime(0);
-  }, []);
+      return {
+        ...state,
+        activeEvent: null,
+      };
+    case "startGame":
+      return {
+        ...state,
+        gameStage: GameStageEnum.RUNNING,
+      };
+    case "pauseGame":
+      return {
+        ...state,
+        gameStage: GameStageEnum.PAUSED,
+      };
+    case "tickTime":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
 
-  
-  return {
-    gameTime,
-    tickTime,
-    resetTime,
-  };
+      const happinessMultiplier = state.employeeHappiness / 10;
+
+      return {
+        ...state,
+        gameTime: state.gameTime + 1,
+        currency: state.currency + state.currencyChange * happinessMultiplier,
+      };
+    case "resetTime":
+      return initialState;
+    case "setUpCompany":
+       return {
+         ...state
+         companyName: action.payload.companyName,
+         techStack: action.payload.techStack
+       }
+    default:
+      throw new Error(`Unexpected action type ${action.type}`);
+  }
 };
 
 export const GameStateProvider = ({ children }) => {
-  const [gameStage, setGameStage] = useState(GameStageEnum.LAUNCH);
-  const { gameTime, tickTime, resetTime } = useGameTime(gameStage);
-  const [activeEvent, setActiveEvent] = useState(null);
-  const [companyName, setCompanyName] = useState("");
-	const [techStack, setTechStack] = useState("");
-  
-  const startEvent = useCallback(
-    (event) => {
-      if (gameStage === GameStageEnum.RUNNING) {
-        setActiveEvent(event);
-      }
-    },
-    [gameStage]
-  );
-
-  const completeEvent = useCallback(() => {
-    if (gameStage === GameStageEnum.RUNNING) {
-      setActiveEvent(null);
-    }
-  }, [gameStage]);
-
-  const startGame = useCallback(() => {
-    setGameStage(GameStageEnum.RUNNING);
-  }, []);
-
-  const pauseGame = useCallback(() => {
-    setGameStage(GameStageEnum.PAUSED);
-  }, []);
-
-  const setCompanyDetails = ({companyName, techStack}) => {
-		setCompanyName(companyName);
-		setTechStack(techStack);
-	};
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <GameStateContext.Provider
       value={{
-        gameTime,
-        tickTime,
-        resetTime,
-        gameStage,
-        startGame,
-        pauseGame,
-        activeEvent,
-        startEvent,
-        completeEvent,
-        companyName,
-				techStack,
-        setCompanyDetails,
+        state,
+        dispatch,
       }}
     >
       {children}
@@ -97,5 +93,6 @@ export const GameStateProvider = ({ children }) => {
 
 export const useGameState = () => {
   const gameState = useContext(GameStateContext);
+
   return gameState;
 };
