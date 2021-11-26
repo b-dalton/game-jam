@@ -79,28 +79,6 @@ const events = [
   },
 ];
 
-// const getFixedEvents = ({ companyName }) => [
-//   {
-//     name: `${companyName} floats on the stock market`,
-//     characterName: "@financial-grimes",
-//     description: `${companyName} has floated on the stock market today netting their executive `,
-//     type: "clackerNews",
-//     condition: ({ gameTime }) => {
-//       const { index } = getPhaseState(gameTime);
-
-//       return index === 1;
-//     },
-//     joke: "lolololol, red bull for the winz 🚫☕️",
-//     image: "coffee",
-//     action: (state) => {
-//       return {
-//         ...state,
-//         currency: state.currency + 5000,
-//       };
-//     },
-//   },
-// ];
-
 export const getRandomEvent = (state) => {
   const shouldFindEvent = Math.random() < 0.02 ? true : false;
   // const shouldFindEvent = true;
@@ -117,13 +95,3 @@ export const getRandomEvent = (state) => {
 
   return matchingEvents[Math.floor(Math.random() * matchingEvents.length)];
 };
-
-// export const getFixedEvent = (state) => {
-//   const matchingEvents = fixedEvents.find((e) => e.condition(state));
-
-//   if (matchingEvents.length === 0) {
-//     return null;
-//   }
-
-//   return matchingEvents;
-// };

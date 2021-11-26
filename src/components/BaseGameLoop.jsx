@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useGameState } from "../contexts/GameState";
+import { getFixedEvent } from "../lib/fixed-event";
 import { getRandomEvent } from "../lib/random-event";
 
 export const BaseGameLoop = () => {
@@ -12,16 +13,22 @@ export const BaseGameLoop = () => {
     timerRef.current = setInterval(() => {
       dispatch({ type: "tickTime" });
 
-      if (!activeEvent) {
-        const event = getRandomEvent(state);
+      const fixedEvent = getFixedEvent(state);
 
-        if (!event) {
-          return;
+      if (fixedEvent) {
+        dispatch({ type: "startEvent", payload: fixedEvent });
+      } else {
+        if (!activeEvent) {
+          const event = getRandomEvent(state);
+
+          if (!event) {
+            return;
+          }
+
+          dispatch({ type: "startEvent", payload: event });
         }
-
-        dispatch({ type: "startEvent", payload: event });
       }
-    }, 100);
+    }, 1000);
 
     return () => {
       clearInterval(timerRef.current);

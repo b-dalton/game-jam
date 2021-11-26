@@ -76,6 +76,7 @@ export const GameWindow = () => {
                 height: "60vh",
                 width: "100%",
                 paddingTop: "2rem",
+                marginRight: "2rem",
               }}
             >
               <EventDialog />
