@@ -1,11 +1,14 @@
 import {
-  Box,
+  Tooltip,
   Chip,
   Stack,
   CircularProgress,
   Paper,
   Button,
 } from "@mui/material";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import HistoryToggleOffIcon from "@mui/icons-material/HistoryToggleOff";
+import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
 
 const getPhaseState = (gameTime) => {
@@ -32,7 +35,7 @@ const secondsToFlooredMinutes = (seconds) => {
 
 export const Toolbar = () => {
   const {
-    state: { currency, gameTime, gameStage },
+    state: { currency, gameTime, gameStage, employeeHappiness },
     dispatch,
   } = useGameState();
 
@@ -55,8 +58,27 @@ export const Toolbar = () => {
           color="secondary"
           value={progress}
         />
-        <Chip color="secondary" label={name} />
-        <Chip color="primary" label={`$${currency.toLocaleString()}`} />
+        <Tooltip title="Game phase">
+          <Chip
+            color="secondary"
+            label={name}
+            icon={<HistoryToggleOffIcon />}
+          />
+        </Tooltip>
+        <Tooltip title="Cash on hand">
+          <Chip
+            color="primary"
+            label={`$${currency.toLocaleString()}`}
+            icon={<AttachMoneyIcon />}
+          />
+        </Tooltip>
+        <Tooltip title="Employee happiness">
+          <Chip
+            color="warning"
+            label={`${employeeHappiness > 0 ? "+" : ""}${employeeHappiness}`}
+            icon={<SentimentVerySatisfiedIcon />}
+          />
+        </Tooltip>
       </Stack>
       <Stack direction="row" spacing={1}>
         <Button
