@@ -38,7 +38,7 @@ export const BaseGameLoop = () => {
           dispatch({ type: "startEvent", payload: event });
         }
       }
-    }, 1000);
+    }, 300);
 
     return () => {
       clearInterval(timerRef.current);
