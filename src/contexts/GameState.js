@@ -4,7 +4,8 @@ export const GameStageEnum = {
   LAUNCH: "launch",
   RUNNING: "running",
   PAUSED: "paused",
-  FINISHED: "finished",
+  LOST: "lost",
+  WON: "won",
 };
 
 export const GameStateContext = React.createContext({});
@@ -12,8 +13,8 @@ export const GameStateContext = React.createContext({});
 const initialState = {
   gameStage: GameStageEnum.LAUNCH,
   gameTime: 0,
-  currency: 10000,
-  currencyChange: 100,
+  currency: 20000,
+  currencyChange: 200,
   employeeHappiness: 10,
   employeeHappinessChange: -0.001,
   totalWorkforceSize: 1,
@@ -27,7 +28,8 @@ const initialState = {
   techStack: null,
   logo: null,
   decideBuyout: false,
-  decideCryptoInvestment: false
+  decideCryptoInvestment: false,
+  loseReason: null,
 };
 
 const reducer = (state, action) => {
@@ -89,6 +91,24 @@ const reducer = (state, action) => {
       window.localStorage.removeItem("gameState");
 
       return initialState;
+    case "restartGame":
+      window.localStorage.removeItem("gameState");
+
+      return {
+        ...initialState,
+        companyName: state.companyName,
+        logo: state.logo,
+        techStack: state.techStack,
+        gameStage: GameStageEnum.RUNNING,
+      };
+    case "loseGame":
+      window.localStorage.removeItem("gameState");
+
+      return {
+        ...state,
+        gameStage: GameStageEnum.LOST,
+        loseReason: action.payload,
+      };
     case "purchaseItem":
       if (state.gameStage !== GameStageEnum.RUNNING) {
         return state;
@@ -107,11 +127,11 @@ const reducer = (state, action) => {
       };
     case "decideBuyout":
       return {
-        decideBuyout: action.payload.decideBuyout
+        decideBuyout: action.payload.decideBuyout,
       };
     case "decideCryptoInvestment":
       return {
-        decideCryptoInvestment: action.payload.decideCryptoInvestment
+        decideCryptoInvestment: action.payload.decideCryptoInvestment,
       };
     default:
       throw new Error(`Unexpected action type ${action.type}`);

@@ -113,7 +113,7 @@ const events = [
 ];
 
 export const getRandomEvent = (state) => {
-  const shouldFindEvent = Math.random() < 0.02 ? true : false;
+  const shouldFindEvent = Math.random() < 0.05 ? true : false;
   // const shouldFindEvent = true;
 
   if (!shouldFindEvent) {

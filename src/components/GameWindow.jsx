@@ -7,6 +7,7 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import React, { useState } from "react";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
 import { getPhaseState } from "../lib/game-phase";
@@ -36,7 +37,7 @@ const TabPanel = ({ children, value, index, ...other }) => {
 
 export const GameWindow = () => {
   const {
-    state: { gameStage, gameTime },
+    state: { gameStage, gameTime, loseReason },
     dispatch,
   } = useGameState();
 
@@ -140,6 +141,13 @@ export const GameWindow = () => {
             </Button>
             <Button
               onClick={() => {
+                dispatch({ type: "restartGame" });
+              }}
+            >
+              Restart game
+            </Button>
+            <Button
+              onClick={() => {
                 dispatch({ type: "resetGame" });
               }}
             >
@@ -149,7 +157,21 @@ export const GameWindow = () => {
         </>
       )}
 
-      {gameStage === GameStageEnum.FINISHED && <div>End of game!</div>}
+      {gameStage === GameStageEnum.LOST && (
+        <Stack direction="column" spacing={3}>
+          <SentimentVeryDissatisfiedIcon fontSize="large" />
+          <Typography>Oh no, you lost! {loseReason}</Typography>
+          <Button onClick={() => dispatch({ type: "restartGame" })}>
+            Try again
+          </Button>
+
+          <EventDialog />
+        </Stack>
+      )}
+
+      {gameStage === GameStageEnum.WON && (
+        <div>Congrats, you became the greatest company ever!</div>
+      )}
     </Container>
   );
 };

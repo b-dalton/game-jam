@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+
 import { useGameState } from "../contexts/GameState";
 import { getFixedEvent } from "../lib/fixed-event";
 import { getRandomEvent } from "../lib/random-event";
@@ -7,11 +8,16 @@ export const BaseGameLoop = () => {
   const timerRef = useRef();
   const { state, dispatch } = useGameState();
 
-  const { activeEvent } = state;
+  const { activeEvent, currency } = state;
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
       dispatch({ type: "tickTime" });
+
+      if (currency < 0) {
+        dispatch({ type: "loseGame", payload: "You ran out of money!" });
+        return;
+      }
 
       const fixedEvent = getFixedEvent(state);
 
