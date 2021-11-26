@@ -1,6 +1,6 @@
 import React from "react";
 import "./EventClacker.css";
-import troll from "../../lib/images/avatar-trollface.jpeg";
+import troll from "../../lib/images/avatar-trollface.png";
 import { Avatar } from "@mui/material";
 import selectedStoryImage from "../../contexts/selectedStoryImage";
 
