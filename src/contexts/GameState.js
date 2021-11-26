@@ -27,8 +27,6 @@ const initialState = {
   companyName: null,
   techStack: null,
   logo: null,
-  decideBuyout: false,
-  decideCryptoInvestment: false,
   loseReason: null,
 };
 
@@ -38,8 +36,18 @@ const reducer = (state, action) => {
       if (state.gameStage !== GameStageEnum.RUNNING) {
         return state;
       }
+
       return {
         ...action.payload.action(state),
+        activeEvent: action.payload,
+      };
+    case "startChoiceEvent":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
+
+      return {
+        ...state,
         activeEvent: action.payload,
       };
     case "completeEvent":
@@ -125,13 +133,10 @@ const reducer = (state, action) => {
       return {
         ...action.payload.action(state),
       };
-    case "decideBuyout":
+    case "makeChoice":
       return {
-        decideBuyout: action.payload.decideBuyout,
-      };
-    case "decideCryptoInvestment":
-      return {
-        decideCryptoInvestment: action.payload.decideCryptoInvestment,
+        ...action.payload.event.action(state, action.payload.choice),
+        activeEvent: null,
       };
     default:
       throw new Error(`Unexpected action type ${action.type}`);
