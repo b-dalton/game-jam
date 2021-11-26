@@ -4,7 +4,7 @@ import { Badge } from "@mui/material";
 
 const EventEmail = ({ event }) => {
   const emailAddress = `${event.characterName
-    .replace(" ", ".")
+    .replace(/ /g, ".")
     .toLowerCase()}@notspam.net`;
   return (
     <div>
