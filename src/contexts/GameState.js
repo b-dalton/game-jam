@@ -15,6 +15,9 @@ const initialState = {
   currency: 10000,
   currencyChange: 100,
   employeeHappiness: 5,
+  employeeHappinessChange: -0.001,
+  employees: 1,
+  maximumEmployees: 5,
   activeEvent: null,
   companyName: null,
   techStack: null
@@ -26,10 +29,8 @@ const reducer = (state, action) => {
       if (state.gameStage !== GameStageEnum.RUNNING) {
         return state;
       }
-      const newState = action.payload.action(state);
-
       return {
-        ...newState,
+        ...action.payload.action(state),
         activeEvent: action.payload,
       };
     case "completeEvent":
@@ -62,6 +63,8 @@ const reducer = (state, action) => {
         ...state,
         gameTime: state.gameTime + 1,
         currency: state.currency + state.currencyChange * happinessMultiplier,
+        employeeHappiness:
+          state.employeeHappiness + state.employeeHappinessChange,
       };
     case "resetTime":
       return initialState;
@@ -71,6 +74,18 @@ const reducer = (state, action) => {
          companyName: action.payload.companyName,
          techStack: action.payload.techStack
        }
+    case "purchaseItem":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
+
+      if (state.currency < action.payload.price) {
+        return state;
+      }
+
+      return {
+        ...action.payload.action(state),
+      };
     default:
       throw new Error(`Unexpected action type ${action.type}`);
   }

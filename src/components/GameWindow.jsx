@@ -1,7 +1,8 @@
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import React from "react";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
 import { EventDialog } from "./EventDialog";
+import { Shop } from "./Shop";
 import StartScreen from "./StartScreen";
 import { TitleBar } from "./TitleBar";
 import { Toolbar } from "./Toolbar";
@@ -28,7 +29,25 @@ export const GameWindow = () => {
       {gameStage === GameStageEnum.RUNNING && (
         <>
           <Toolbar />
-          <EventDialog />
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box>
+              <EventDialog />
+            </Box>
+
+            <Box
+              sx={{
+                width: "35%",
+              }}
+            >
+              <Shop />
+            </Box>
+          </Box>
         </>
       )}
 

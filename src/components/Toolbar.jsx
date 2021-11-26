@@ -10,6 +10,7 @@ import BusinessIcon from '@mui/icons-material/Business';
 import CodeIcon from '@mui/icons-material/Code';
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import HistoryToggleOffIcon from "@mui/icons-material/HistoryToggleOff";
+import GroupsIcon from "@mui/icons-material/Groups";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
 
@@ -37,7 +38,15 @@ const secondsToFlooredMinutes = (seconds) => {
 
 export const Toolbar = () => {
   const {
-    state: { currency, gameTime, gameStage, employeeHappiness, companyName, techStack },
+    state: {
+      currency,
+      currencyChange,
+      gameTime,
+      gameStage,
+      employeeHappiness,
+      employees,
+      maximumEmployees,
+    },
     dispatch,
   } = useGameState();
 
@@ -84,14 +93,25 @@ export const Toolbar = () => {
         <Tooltip title="Cash on hand">
           <Chip
             color="primary"
-            label={`$${currency.toLocaleString()}`}
+            label={`$${currency.toLocaleString()} (${
+              currencyChange > 0 ? "+" : ""
+            }$${currencyChange.toLocaleString()})`}
             icon={<AttachMoneyIcon />}
+          />
+        </Tooltip>
+        <Tooltip title="Number of employees / maximum employees">
+          <Chip
+            color="success"
+            label={`${employees}/${maximumEmployees}`}
+            icon={<GroupsIcon />}
           />
         </Tooltip>
         <Tooltip title="Employee happiness">
           <Chip
             color="warning"
-            label={`${employeeHappiness > 0 ? "+" : ""}${employeeHappiness}`}
+            label={`${
+              employeeHappiness > 0 ? "+" : ""
+            }${employeeHappiness.toFixed(1)}`}
             icon={<SentimentVerySatisfiedIcon />}
           />
         </Tooltip>

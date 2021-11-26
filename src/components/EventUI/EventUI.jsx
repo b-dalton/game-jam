@@ -1,9 +1,13 @@
 import React from "react";
 import EventEmail from "./EventEmail";
+import EventClacker from "./EventClacker";
 
 const EventUI = ({activeEvent}) => {
   if (activeEvent.type === "email") {
     return <EventEmail event={activeEvent} />;
+  }
+  if (activeEvent.type === "clackerNews") {
+    return <EventClacker event={activeEvent} />;
   }
   return (
     <div>

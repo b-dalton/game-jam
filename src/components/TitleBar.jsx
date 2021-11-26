@@ -1,4 +1,4 @@
-import { Paper, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 
 export const TitleBar = () => {
   return (
@@ -9,12 +9,21 @@ export const TitleBar = () => {
         padding: "1rem",
       }}
     >
-      <Typography variant="h4" component="h1">
-        Made Tech Simulator
-      </Typography>
-      <Typography variant="h6" component="h2">
-        Can you become an intergalactic tech provider?{" "}
-      </Typography>
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="h4" component="h1">
+          Made Tech Simulator
+        </Typography>
+        <Typography variant="h6" component="h2">
+          Can you become an intergalactic tech provider?{" "}
+        </Typography>
+      </Stack>
     </Paper>
   );
 };
