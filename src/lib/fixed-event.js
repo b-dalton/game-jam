@@ -7,7 +7,7 @@ export const getFixedEvent = (state) => {
       characterName: "Bought Works",
       description:
         "Wow, your company is growing really quickly. What do you want to do?",
-      condition: (state) => state.gameTime === 1,
+      condition: (state) => state.gameTime === 180,
       options: ["IPO", "Buy Out"],
       type: "choice",
       action: (state, choice) => {
