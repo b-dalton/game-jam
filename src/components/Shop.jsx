@@ -74,7 +74,7 @@ const shopItems = [
     isActive: ({ gameTime }) => {
       const { index } = getPhaseState(gameTime);
 
-      return index > 0;
+      return index > 1;
     },
     action: (state) => {
       return {
