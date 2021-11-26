@@ -75,7 +75,9 @@ export const Toolbar = () => {
         <Tooltip title="Employee happiness">
           <Chip
             color="warning"
-            label={`${employeeHappiness > 0 ? "+" : ""}${employeeHappiness}`}
+            label={`${
+              employeeHappiness > 0 ? "+" : ""
+            }${employeeHappiness.toFixed(1)}`}
             icon={<SentimentVerySatisfiedIcon />}
           />
         </Tooltip>
