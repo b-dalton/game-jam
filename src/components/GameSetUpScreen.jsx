@@ -3,7 +3,7 @@ import { useState } from "react/cjs/react.development";
 import { useGameState } from "../contexts/GameState";
 
 export const GameSetupScreen = (props) => {
-	const { setCompanyDetails } = useGameState();
+	const { dispatch } = useGameState();
 	const [companyName, setCompanyName] = useState();
 	const [techStack, setTechStack] = useState();
 
@@ -11,7 +11,7 @@ export const GameSetupScreen = (props) => {
 		event.preventDefault();
 		console.log(`Company name: ${companyName}`);
 		console.log(`Tech stack: ${techStack}`);
-		setCompanyDetails({ companyName: companyName, techStack: techStack });
+		dispatch({ type: "setUpCompany", payload: { companyName, techStack }});
 		alert("Company details submitted");
 	};
 

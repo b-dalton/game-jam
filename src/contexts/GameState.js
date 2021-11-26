@@ -67,7 +67,7 @@ const reducer = (state, action) => {
       return initialState;
     case "setUpCompany":
        return {
-         ...state
+         ...state,
          companyName: action.payload.companyName,
          techStack: action.payload.techStack
        }

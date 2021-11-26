@@ -30,6 +30,7 @@ export const GamePhase = () => {
 
   return (
     <div>
+    <div>
       <p>
         Time: {minutesIntoGame} minutes {gameTime % 60} seconds (phase:{" "}
         {gamePhase})
