@@ -10,6 +10,25 @@ import { useGameState } from "../contexts/GameState";
 
 const contracts = [
   {
+    id: "bins-r-us",
+    name: "Bins-r-us",
+    description:
+      "Pls help us with the bin situation, it's overflowing out here!",
+    value: 950,
+    recurringValue: 25,
+    requiredTeamSize: 1,
+    isActive: () => true,
+    action: (state) => {
+      return {
+        ...state,
+        currency: state.currency + 950,
+        currencyChange: state.currencyChange + 25,
+        occupiedEmployees: state.occupiedEmployees + 1,
+        signedContracts: [...state.signedContracts, "bins-r-us"],
+      };
+    },
+  },
+  {
     id: "nasa-moon-base",
     name: "NASA Moon Base",
     description:
@@ -43,6 +62,8 @@ export const Marketplace = () => {
     signedContracts.includes(id)
   );
 
+  const freeEmployees = employees - occupiedEmployees;
+
   return (
     <>
       <Typography variant="h6" component="h2">
@@ -56,7 +77,7 @@ export const Marketplace = () => {
                 <ListItemButton
                   disabled={
                     !item.isActive(state) ||
-                    employees - occupiedEmployees < item.requiredTeamSize
+                    freeEmployees < item.requiredTeamSize
                   }
                   onClick={() => {
                     dispatch({ type: "signContract", payload: item });
@@ -75,7 +96,8 @@ export const Marketplace = () => {
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                           — Required Team Size: {item.requiredTeamSize} (you
-                          have {employees - occupiedEmployees})
+                          have {freeEmployees} free employee
+                          {freeEmployees === 1 ? "" : "s"})
                         </Typography>
                       </>
                     }
@@ -112,8 +134,7 @@ export const Marketplace = () => {
                         {item.recurringValue.toLocaleString()} per second
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        — Required Team Size: {item.requiredTeamSize} (you have{" "}
-                        {employees - occupiedEmployees})
+                        — Team on site: {item.requiredTeamSize}
                       </Typography>
                     </>
                   }

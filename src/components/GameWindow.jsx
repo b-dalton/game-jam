@@ -16,6 +16,7 @@ const TabPanel = ({ children, value, index, ...other }) => {
       sx={{
         overflow: "auto",
         maxHeight: "60vh",
+        paddingTop: "1rem",
       }}
       {...other}
     >

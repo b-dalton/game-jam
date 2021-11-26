@@ -6,8 +6,8 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import BusinessIcon from '@mui/icons-material/Business';
-import CodeIcon from '@mui/icons-material/Code';
+import BusinessIcon from "@mui/icons-material/Business";
+import CodeIcon from "@mui/icons-material/Code";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import HistoryToggleOffIcon from "@mui/icons-material/HistoryToggleOff";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -46,8 +46,9 @@ export const Toolbar = () => {
       employeeHappiness,
       employees,
       maximumEmployees,
+      occupiedEmployees,
       companyName,
-      techStack
+      techStack,
     },
     dispatch,
   } = useGameState();
@@ -79,18 +80,10 @@ export const Toolbar = () => {
           />
         </Tooltip>
         <Tooltip title="Company name">
-          <Chip
-            color="secondary"
-            label={companyName}
-            icon={<BusinessIcon />}
-          />
+          <Chip color="secondary" label={companyName} icon={<BusinessIcon />} />
         </Tooltip>
         <Tooltip title="Tech Stack">
-          <Chip
-            color="secondary"
-            label={techStack}
-            icon={<CodeIcon />}
-          />
+          <Chip color="secondary" label={techStack} icon={<CodeIcon />} />
         </Tooltip>
         <Tooltip title="Cash on hand">
           <Chip
@@ -104,7 +97,7 @@ export const Toolbar = () => {
         <Tooltip title="Number of employees / maximum employees">
           <Chip
             color="success"
-            label={`${employees}/${maximumEmployees}`}
+            label={`${employees}/${maximumEmployees} (${occupiedEmployees} occupied)`}
             icon={<GroupsIcon />}
           />
         </Tooltip>
