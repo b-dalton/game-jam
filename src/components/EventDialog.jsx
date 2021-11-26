@@ -1,5 +1,5 @@
 import { Container, Paper } from "@mui/material";
-
+import EventUI from "./EventUI";
 import { useGameState } from "../contexts/GameState";
 
 export const EventDialog = () => {
@@ -25,6 +25,7 @@ export const EventDialog = () => {
         }}
       >
         <p>EVENT: {activeEvent.name}</p>
+        <EventUI />
         <button onClick={() => dispatch({ type: "completeEvent" })}>
           Continue
         </button>
