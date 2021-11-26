@@ -8,8 +8,8 @@ export const getFixedEvent = (state) => {
       condition: ({ gameTime }) => {
         return gameTime === 180;
       },
-      joke: "",
-      image: "coffee",
+      joke: `Incredible news for ${state.companyName}. Hoping they branch out into potato delivery soon!`,
+      image: "breakingNews",
       action: (state) => {
         return {
           ...state,
