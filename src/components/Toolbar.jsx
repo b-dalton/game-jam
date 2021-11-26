@@ -88,9 +88,9 @@ export const Toolbar = () => {
         <Tooltip title="Cash on hand">
           <Chip
             color="primary"
-            label={`$${currency.toLocaleString()} (${
+            label={`$${currency.toFixed(2)} (${
               currencyChange > 0 ? "+" : ""
-            }$${currencyChange.toLocaleString()})`}
+            }$${(currencyChange * (employeeHappiness / 10)).toFixed(2)})`}
             icon={<AttachMoneyIcon />}
           />
         </Tooltip>
