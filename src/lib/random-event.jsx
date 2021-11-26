@@ -77,6 +77,21 @@ const events = [
       };
     },
   },
+  {
+    name: "Notice of resignation!",
+    characterName: "Mr Needsmore Cash",
+    description:
+      "Please accept this email as a notice of my resignation as of this morning. I will not be making a statement or appearing on the morning news, as I am not famous and nobody cares.",
+    type: "email",
+    condition: () => true,
+    action: (state) => {
+      return {
+        ...state,
+        humanEmployees: state.humanEmployees - 1,
+        totalWorkforceSize: state.totalWorkforceSize - 1,
+      };
+    },
+  },
 ];
 
 export const getRandomEvent = (state) => {
