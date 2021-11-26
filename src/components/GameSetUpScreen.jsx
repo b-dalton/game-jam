@@ -9,8 +9,7 @@ import {
   Box,
 } from "@mui/material";
 
-import React from "react";
-import { useState } from "react/cjs/react.development";
+import React, { useState } from "react";
 import { useGameState } from "../contexts/GameState";
 import cheese from "../lib/images/logo-cheese.png";
 import watermelon from "../lib/images/logo-watermelon.png";
