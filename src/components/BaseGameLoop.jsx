@@ -22,7 +22,11 @@ export const BaseGameLoop = () => {
       const fixedEvent = getFixedEvent(state);
 
       if (fixedEvent) {
-        dispatch({ type: "startEvent", payload: fixedEvent });
+        if (fixedEvent.type === "choice") {
+          dispatch({ type: "startChoiceEvent", payload: fixedEvent });
+        } else {
+          dispatch({ type: "startEvent", payload: fixedEvent });
+        }
       } else {
         if (!activeEvent) {
           const event = getRandomEvent(state);

@@ -3,19 +3,26 @@ import { GameStageEnum } from "../contexts/GameState";
 export const getFixedEvent = (state) => {
   const fixedEvents = [
     {
-      name: `${state.companyName} floats on the stock market`,
-      characterName: "@financial-grimes",
-      description: `${state.companyName} has floated on the stock market today, evidenced by their executive team seen stumbling around the London Stock Exchange at 8:30am blind drunk. ${state.companyName} has netted a cool $420,000 as part of the float.`,
-      type: "clackerNews",
-      condition: ({ gameTime }) => {
-        return gameTime === 180;
-      },
-      joke: `Incredible news for ${state.companyName}. Hoping they branch out into potato delivery soon!`,
-      image: "breakingNews",
-      action: (state) => {
+      name: "Buyout or IPO",
+      characterName: "Bought Works",
+      description:
+        "Wow, your company is growing really quickly. What do you want to do?",
+      condition: (state) => state.gameTime === 1,
+      options: ["IPO", "Buy Out"],
+      type: "choice",
+      action: (state, choice) => {
+        if (choice === "Buy Out") {
+          return {
+            ...state,
+            companyName: "Bought Works",
+            employeeHappiness: state.employeeHappiness - 4,
+            employees: state.employees - 2,
+          };
+        }
         return {
           ...state,
-          currency: state.currency + 420000,
+          currency: state.currency + 500000,
+          employeeHappiness: state.employeeHappiness + 4,
         };
       },
     },
