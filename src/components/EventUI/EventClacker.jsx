@@ -1,8 +1,7 @@
 import React from "react";
 import "./EventClacker.css";
-import troll from "../../lib/images/avatar-trollface.png";
-import { Avatar } from "@mui/material";
 import selectedStoryImage from "../../contexts/selectedStoryImage";
+import selectedAvatar from "../../contexts/selectedAvatar";
 
 const EventClacker = ({ event }) => {  
   return (
@@ -16,7 +15,7 @@ const EventClacker = ({ event }) => {
       <hr />
       <div>
         <div className="comment">
-          <Avatar alt={event.characterName} src={troll} />
+          {selectedAvatar(event.characterName)}
           <p className="comment-user">{event.characterName}</p>
         </div>
         <p className="comment-body">{event.joke}</p>
