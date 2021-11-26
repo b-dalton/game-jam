@@ -12,16 +12,20 @@ import {
 import React from "react";
 import { useState } from "react/cjs/react.development";
 import { useGameState } from "../contexts/GameState";
+import cheese from "../lib/images/logo-cheese.png";
+import watermelon from "../lib/images/logo-watermelon.png";
+import pizza from "../lib/images/logo-pizza.png";
 
 export const GameSetupScreen = (props) => {
   const { dispatch } = useGameState();
   const [companyName, setCompanyName] = useState();
   const [techStack, setTechStack] = useState();
+  const [logo, setLogo] = useState();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    dispatch({ type: "startGame", payload: { companyName, techStack } });
+    dispatch({ type: "startGame", payload: { companyName, techStack, logo } });
   };
 
   return (
@@ -66,6 +70,30 @@ export const GameSetupScreen = (props) => {
             <MenuItem value="JavaScript">JavaScript</MenuItem>
             <MenuItem value="Haskell">Haskell</MenuItem>
             <MenuItem value="C#">C#</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth>
+          <InputLabel id="logo">Choose your Logo</InputLabel>
+          <Select
+            labelId="logo"
+            name="logo"
+            value={techStack}
+            required={true}
+            label="Choose your Company Logo"
+            onChange={(event) => {
+              setLogo(event.target.value);
+            }}
+          >
+            <MenuItem value="cheese">
+              <img src={cheese} alt="Cheese Triangle Logo" />
+            </MenuItem>
+            <MenuItem value="watermelon">
+              <img src={watermelon} alt="Watermelon Triangle Logo" />
+            </MenuItem>
+            <MenuItem value="pizza">
+              <img src={pizza} alt="Pizza Triangle Logo" />
+            </MenuItem>
           </Select>
         </FormControl>
 

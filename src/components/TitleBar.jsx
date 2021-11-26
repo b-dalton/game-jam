@@ -1,6 +1,11 @@
 import { Paper, Stack, Typography } from "@mui/material";
+import { GameStageEnum, useGameState } from "../contexts/GameState";
+import selectedLogo from "../contexts/selectedLogo";
 
 export const TitleBar = () => {
+
+  const { state } = useGameState();
+
   return (
     <Paper
       elevation={2}
@@ -17,6 +22,7 @@ export const TitleBar = () => {
           alignItems: "center",
         }}
       >
+        {state.gameStage === GameStageEnum.RUNNING ? selectedLogo(state.logo) : null}
         <Typography variant="h4" component="h1">
           Digital Agency Simulator
         </Typography>
