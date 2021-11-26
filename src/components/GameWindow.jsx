@@ -1,41 +1,49 @@
+import { Container } from "@mui/material";
 import React from "react";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
 import { EventDialog } from "./EventDialog";
 
 import { GamePhase } from "./GamePhase";
 import StartScreen from "./StartScreen";
+import { TitleBar } from "./TitleBar";
+import { Toolbar } from "./Toolbar";
 
 export const GameWindow = () => {
   const {
     state: { gameStage },
-    dispatch,
   } = useGameState();
 
   return (
-    <div>
+    <Container
+      sx={{
+        paddingTop: "2rem",
+        paddingBottom: "2rem",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <TitleBar />
+
       {gameStage === GameStageEnum.LAUNCH && <StartScreen />}
 
       {gameStage === GameStageEnum.RUNNING && (
         <>
-          <GamePhase />
+          <Toolbar />
+
           <EventDialog />
-          <button onClick={() => dispatch({ type: "pauseGame" })}>
-            Pause game
-          </button>
         </>
       )}
 
       {gameStage === GameStageEnum.PAUSED && (
         <>
-          <GamePhase />
+          <Toolbar />
+
           <div>Paused...</div>
-          <button onClick={() => dispatch({ type: "startGame" })}>
-            Resume game
-          </button>
         </>
       )}
 
       {gameStage === GameStageEnum.FINISHED && <div>End of game!</div>}
-    </div>
+    </Container>
   );
 };

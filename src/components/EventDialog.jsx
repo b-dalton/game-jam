@@ -1,3 +1,5 @@
+import { Container, Paper } from "@mui/material";
+
 import { useGameState } from "../contexts/GameState";
 
 export const EventDialog = () => {
@@ -11,23 +13,22 @@ export const EventDialog = () => {
   }
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: "10%",
-        left: "10%",
-        width: "80%",
-        height: "80%",
-        backgroundColor: "white",
-        boxShadow: "0 0 10px #888",
-        borderRadius: "10px",
-        padding: "20px",
+    <Container
+      sx={{
+        margin: "auto",
       }}
     >
-      <p>EVENT: {activeEvent.name}</p>
-      <button onClick={() => dispatch({ type: "completeEvent" })}>
-        Continue
-      </button>
-    </div>
+      <Paper
+        elevation={2}
+        sx={{
+          padding: "2rem",
+        }}
+      >
+        <p>EVENT: {activeEvent.name}</p>
+        <button onClick={() => dispatch({ type: "completeEvent" })}>
+          Continue
+        </button>
+      </Paper>
+    </Container>
   );
 };
