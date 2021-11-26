@@ -1,17 +1,36 @@
-import { Container, Box } from "@mui/material";
-import React from "react";
+import { Container, Box, Tabs, Tab } from "@mui/material";
+import React, { useState } from "react";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
 import { EventDialog } from "./EventDialog";
+import { Marketplace } from "./Marketplace";
 import { Shop } from "./Shop";
 
 import StartScreen from "./StartScreen";
 import { TitleBar } from "./TitleBar";
 import { Toolbar } from "./Toolbar";
 
+const TabPanel = ({ children, value, index, ...other }) => {
+  return (
+    <Box
+      role="tabpanel"
+      hidden={value !== index}
+      sx={{
+        overflow: "auto",
+        maxHeight: "60vh",
+      }}
+      {...other}
+    >
+      {value === index && <>{children}</>}
+    </Box>
+  );
+};
+
 export const GameWindow = () => {
   const {
     state: { gameStage },
   } = useGameState();
+
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Container
@@ -43,10 +62,32 @@ export const GameWindow = () => {
 
             <Box
               sx={{
-                width: "35%",
+                minWidth: "35%",
+                maxWidth: "35%",
               }}
             >
-              <Shop />
+              <Box
+                sx={{
+                  borderBottom: 1,
+                  borderColor: "divider",
+                }}
+              >
+                <Tabs
+                  value={tabIndex}
+                  onChange={(_, newValue) => {
+                    setTabIndex(newValue);
+                  }}
+                >
+                  <Tab label="Shop" />
+                  <Tab label="Contracts" />
+                </Tabs>
+              </Box>
+              <TabPanel value={tabIndex} index={0}>
+                <Shop />
+              </TabPanel>
+              <TabPanel value={tabIndex} index={1}>
+                <Marketplace />
+              </TabPanel>
             </Box>
           </Box>
         </>

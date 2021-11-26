@@ -87,10 +87,6 @@ export const Shop = () => {
 
   return (
     <>
-      <Typography variant="h6" component="h2">
-        Shop
-      </Typography>
-
       <List>
         {shopItems.map((item, index) => (
           <ListItem disablePadding key={index}>

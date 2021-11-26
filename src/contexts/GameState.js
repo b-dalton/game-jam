@@ -18,7 +18,9 @@ const initialState = {
   employeeHappinessChange: -0.001,
   employees: 1,
   maximumEmployees: 5,
+  occupiedEmployees: 0,
   activeEvent: null,
+  signedContracts: [],
 };
 
 const reducer = (state, action) => {
@@ -76,6 +78,10 @@ const reducer = (state, action) => {
         return state;
       }
 
+      return {
+        ...action.payload.action(state),
+      };
+    case "signContract":
       return {
         ...action.payload.action(state),
       };

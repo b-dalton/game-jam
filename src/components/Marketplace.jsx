@@ -1,0 +1,126 @@
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import { useGameState } from "../contexts/GameState";
+
+const contracts = [
+  {
+    id: "nasa-moon-base",
+    name: "NASA Moon Base",
+    description:
+      "You heard us right, NASA needs an exciting team to help us build our new lunar base",
+    value: 15000,
+    recurringValue: 150,
+    requiredTeamSize: 1,
+    isActive: () => true,
+    action: (state) => {
+      return {
+        ...state,
+        currency: state.currency + 15000,
+        currencyChange: state.currencyChange + 150,
+        occupiedEmployees: state.occupiedEmployees + 1,
+        signedContracts: [...state.signedContracts, "nasa-moon-base"],
+      };
+    },
+  },
+];
+
+export const Marketplace = () => {
+  const { state, dispatch } = useGameState();
+
+  const { employees, occupiedEmployees, signedContracts } = state;
+
+  const availableContracts = contracts.filter(
+    ({ id }) => !signedContracts.includes(id)
+  );
+
+  const signedContractsList = contracts.filter(({ id }) =>
+    signedContracts.includes(id)
+  );
+
+  return (
+    <>
+      <Typography variant="h6" component="h2">
+        Available contracts{" "}
+      </Typography>
+      <List>
+        {availableContracts.length === 0
+          ? "There are no open contracts on the marketplace right now..."
+          : availableContracts.map((item, index) => (
+              <ListItem disablePadding>
+                <ListItemButton
+                  disabled={
+                    !item.isActive(state) ||
+                    employees - occupiedEmployees < item.requiredTeamSize
+                  }
+                  onClick={() => {
+                    dispatch({ type: "signContract", payload: item });
+                  }}
+                >
+                  <ListItemText
+                    primary={item.name}
+                    secondary={
+                      <>
+                        <Typography variant="body2" color="text.primary">
+                          {item.description}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          — Value: ${item.value.toLocaleString()} up front and $
+                          {item.recurringValue.toLocaleString()} per second
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          — Required Team Size: {item.requiredTeamSize} (you
+                          have {employees - occupiedEmployees})
+                        </Typography>
+                      </>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+      </List>
+
+      <Divider
+        sx={{
+          marginTop: "2rem",
+          marginBottom: "2rem",
+        }}
+      />
+
+      <Typography variant="h6" component="h2">
+        Signed contracts{" "}
+      </Typography>
+      <List>
+        {signedContractsList.length === 0
+          ? "You haven't signed any contracts yet..."
+          : signedContractsList.map((item, index) => (
+              <ListItem disablePadding>
+                <ListItemText
+                  primary={item.name}
+                  secondary={
+                    <>
+                      <Typography variant="body2" color="text.primary">
+                        {item.description}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        — Value: ${item.value.toLocaleString()} up front and $
+                        {item.recurringValue.toLocaleString()} per second
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        — Required Team Size: {item.requiredTeamSize} (you have{" "}
+                        {employees - occupiedEmployees})
+                      </Typography>
+                    </>
+                  }
+                />
+              </ListItem>
+            ))}
+      </List>
+    </>
+  );
+};
