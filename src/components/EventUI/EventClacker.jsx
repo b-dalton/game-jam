@@ -1,17 +1,26 @@
 import React from "react";
 import "./EventClacker.css";
 import coffee from "../../lib/images/coffee-beans.jpeg";
-import troll from "../../lib/images/trollface.jpeg"
+import troll from "../../lib/images/trollface.jpeg";
 import { Avatar } from "@mui/material";
 
 const EventClacker = ({ event }) => {
+  let image;
+  switch (event.image) {
+    case "coffee":
+      image = coffee;
+      break;
+    default:
+      image = coffee;
+  }
+  
   return (
     <div>
       <div className="header">CLACKER NEWS</div>
       <h2>{event.name}</h2>
       <div className="content">
         {/* <img src={event.image} alt={event.name} /> */}
-        <img src={coffee} alt={event.name} className="clacker-image" />
+        <img src={image} alt={event.name} className="clacker-image" />
         <p>{event.description}</p>
       </div>
       <hr />
