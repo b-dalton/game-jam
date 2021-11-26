@@ -20,6 +20,7 @@
 .comment-user {
     margin-bottom: 0;
     font-weight: bold;
+    padding-left: 0.5em;
 }
 
 .comment-body {

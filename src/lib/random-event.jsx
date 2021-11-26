@@ -16,14 +16,14 @@ const events = [
   },
   {
     name: "Coffee Beans now declard illegal contriband worldwide!",
-    characterName: "@java.afficionado",
+    characterName: "@not.a.troll",
     description:
       "Following recent news that the production of coffee beans are the leading cause of global warming, the UN has outlawed possession of coffee beans. This has led to widespread panic globally as retail workers, civil servants, parents of new-borns and developers search for a replacement to that caffeine fix.",
     type:
       "clackerNews",
       condition: (state) => state.gameTime >= 0 && state.gameTime < 10000,
     joke: "lolololol, red bull for the winz 🚫☕️",
-    image: "../../lib/images/coffee-beans.jpeg",
+    image: "coffee",
     action: (state) => {
       return {
         ...state,
@@ -34,8 +34,8 @@ const events = [
 ];
 
 export const getRandomEvent = (state) => {
-  const shouldFindEvent = Math.random() < 0.02 ? true : false;
-  // const shouldFindEvent = true;
+  // const shouldFindEvent = Math.random() < 0.02 ? true : false;
+  const shouldFindEvent = true;
 
   if (!shouldFindEvent) {
     return null;
