@@ -57,7 +57,7 @@ const contracts = [
 export const Marketplace = () => {
   const { state, dispatch } = useGameState();
 
-  const { employees, occupiedEmployees, signedContracts } = state;
+  const { totalWorkforceSize, occupiedEmployees, signedContracts } = state;
 
   const availableContracts = contracts.filter(
     ({ id }) => !signedContracts.includes(id)
@@ -67,7 +67,7 @@ export const Marketplace = () => {
     signedContracts.includes(id)
   );
 
-  const freeEmployees = employees - occupiedEmployees;
+  const freeEmployees = totalWorkforceSize - occupiedEmployees;
 
   return (
     <>

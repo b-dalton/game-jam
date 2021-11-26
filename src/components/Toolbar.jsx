@@ -44,7 +44,7 @@ export const Toolbar = () => {
       gameTime,
       gameStage,
       employeeHappiness,
-      employees,
+      totalWorkforceSize,
       maximumEmployees,
       occupiedEmployees,
       companyName,
@@ -97,7 +97,7 @@ export const Toolbar = () => {
         <Tooltip title="Number of employees / maximum employees">
           <Chip
             color="success"
-            label={`${employees}/${maximumEmployees} (${occupiedEmployees} occupied)`}
+            label={`${totalWorkforceSize}/${maximumEmployees} (${occupiedEmployees} occupied)`}
             icon={<GroupsIcon />}
           />
         </Tooltip>
