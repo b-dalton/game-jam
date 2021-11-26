@@ -24,7 +24,6 @@ export const EventDialog = () => {
           padding: "2rem",
         }}
       >
-        {/* <p>EVENT: {activeEvent.name}</p> */}
         <EventUI activeEvent={activeEvent} />
         <button onClick={() => dispatch({ type: "completeEvent" })}>
           Continue
