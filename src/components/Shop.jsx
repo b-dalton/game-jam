@@ -53,7 +53,7 @@ const shopItems = [
     recurringPrice: 50,
     description: "Woah, a new team member! I wonder if they'll be nice?",
     icon: <PersonAddIcon />,
-    isActive: (state) => state.totalWorkforceSize < 5,
+    isActive: (state) => state.totalWorkforceSize < state.maximumEmployees,
     action: (state) => {
       return {
         ...state,
