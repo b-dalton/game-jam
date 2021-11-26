@@ -14,7 +14,7 @@ const initialState = {
   gameTime: 0,
   currency: 10000,
   currencyChange: 100,
-  employeeHappiness: 5,
+  employeeHappiness: 10,
   employeeHappinessChange: -0.001,
   totalWorkforceSize: 1,
   humanEmployees: 1,
@@ -26,6 +26,8 @@ const initialState = {
   companyName: null,
   techStack: null,
   logo: null,
+  decideBuyout: false,
+  decideCryptoInvestment: false
 };
 
 const reducer = (state, action) => {
@@ -102,6 +104,14 @@ const reducer = (state, action) => {
     case "signContract":
       return {
         ...action.payload.action(state),
+      };
+    case "decideBuyout":
+      return {
+        decideBuyout: action.payload.decideBuyout
+      };
+    case "decideCryptoInvestment":
+      return {
+        decideCryptoInvestment: action.payload.decideCryptoInvestment
       };
     default:
       throw new Error(`Unexpected action type ${action.type}`);
