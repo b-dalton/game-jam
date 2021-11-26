@@ -34,8 +34,18 @@ const reducer = (state, action) => {
       if (state.gameStage !== GameStageEnum.RUNNING) {
         return state;
       }
+
       return {
         ...action.payload.action(state),
+        activeEvent: action.payload,
+      };
+    case "startChoiceEvent":
+      if (state.gameStage !== GameStageEnum.RUNNING) {
+        return state;
+      }
+
+      return {
+        ...state,
         activeEvent: action.payload,
       };
     case "completeEvent":
@@ -104,9 +114,9 @@ const reducer = (state, action) => {
         ...action.payload.action(state),
       };
     case "makeChoice":
-      console.log(action.payload)
       return {
-        ...action.payload.event.action(state, action.payload.choice)
+        ...action.payload.event.action(state, action.payload.choice),
+        activeEvent: null,
       };
     default:
       throw new Error(`Unexpected action type ${action.type}`);
