@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { GameStageEnum, useGameState } from "../contexts/GameState";
+import { getPhaseState } from "../lib/game-phase";
 import { EventDialog } from "./EventDialog";
 import { Marketplace } from "./Marketplace";
 import { Shop } from "./Shop";
@@ -35,11 +36,13 @@ const TabPanel = ({ children, value, index, ...other }) => {
 
 export const GameWindow = () => {
   const {
-    state: { gameStage },
+    state: { gameStage, gameTime },
     dispatch,
   } = useGameState();
 
   const [tabIndex, setTabIndex] = useState(0);
+
+  const { name, image } = getPhaseState(gameTime);
 
   return (
     <Container
@@ -65,7 +68,16 @@ export const GameWindow = () => {
               justifyContent: "space-between",
             }}
           >
-            <Box>
+            <Box
+              sx={{
+                backgroundImage: `url(${image})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                height: "60vh",
+                width: "100%",
+                paddingTop: "2rem",
+              }}
+            >
               <EventDialog />
             </Box>
 
