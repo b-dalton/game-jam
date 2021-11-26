@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { useGameState } from "../contexts/GameState";
 import { getFixedEvent } from "../lib/fixed-event";
 import { getRandomEvent } from "../lib/random-event";
-import { getBuyoutEvent, getCryptoEvent } from "../lib/specific-events"
 
 export const BaseGameLoop = () => {
   const timerRef = useRef();
