@@ -1,4 +1,4 @@
-import { GameStateProvider } from "./game-state";
+import { GameStateProvider } from "./contexts/GameState";
 import { BaseGameLoop } from "./components/BaseGameLoop";
 import { GameWindow } from "./components/GameWindow";
 import "./App.css";

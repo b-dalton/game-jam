@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { useGameState } from "../game-state";
+import { useGameState } from "../contexts/GameState";
 import "./StartScreen.css";
 
 const StartScreen = () => {

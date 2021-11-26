@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useGameState } from "../game-state";
+import { useGameState } from "../contexts/GameState";
 import { getRandomEvent } from "../lib/random-event";
 
 export const BaseGameLoop = () => {

@@ -1,4 +1,4 @@
-import { useGameState } from "../game-state";
+import { useGameState } from "../contexts/GameState";
 
 export const EventDialog = () => {
   const { activeEvent, completeEvent } = useGameState();

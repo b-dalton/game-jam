@@ -1,5 +1,5 @@
 import React from "react";
-import { GameStageEnum, useGameState } from "../game-state";
+import { GameStageEnum, useGameState } from "../contexts/GameState";
 import { EventDialog } from "./EventDialog";
 
 import { GamePhase } from "./GamePhase";

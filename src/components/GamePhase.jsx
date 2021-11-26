@@ -1,4 +1,4 @@
-import { useGameState } from "../game-state";
+import { useGameState } from "../contexts/GameState";
 
 const getPhaseName = (minutesIntoGame) => {
   if (minutesIntoGame < 3) {
