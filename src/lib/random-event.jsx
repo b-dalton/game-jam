@@ -20,7 +20,7 @@ const events = [
     },
   },
   {
-    name: "Coffee Beans now declard illegal contriband worldwide!",
+    name: "Coffee Beans now declared illegal contriband worldwide!",
     characterName: "@not.a.troll",
     description:
       "Following recent news that the production of coffee beans are the leading cause of global warming, the UN has outlawed possession of coffee beans. This has led to widespread panic globally as retail workers, civil servants, parents of new-borns and developers search for a replacement to that caffeine fix.",

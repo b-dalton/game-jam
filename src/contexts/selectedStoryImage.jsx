@@ -6,7 +6,7 @@ const selectedStoryImage = (story) => {
     case "coffee":
       return <img style={{maxHeight: "200px"}} src={coffee} alt="coffee" />;
     default:
-      return <img style={{maxHeight: "200px"}} src={breaking} alt="coffee"/>;
+      return <img style={{maxHeight: "200px"}} src={breaking} alt="breaking-news"/>;
   }
 }
 
