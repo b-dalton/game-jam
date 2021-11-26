@@ -21,6 +21,8 @@ const initialState = {
   occupiedEmployees: 0,
   activeEvent: null,
   signedContracts: [],
+  companyName: null,
+  techStack: null,
 };
 
 const reducer = (state, action) => {
@@ -29,7 +31,6 @@ const reducer = (state, action) => {
       if (state.gameStage !== GameStageEnum.RUNNING) {
         return state;
       }
-
       return {
         ...action.payload.action(state),
         activeEvent: action.payload,
@@ -69,6 +70,12 @@ const reducer = (state, action) => {
       };
     case "resetTime":
       return initialState;
+    case "setUpCompany":
+      return {
+        ...state,
+        companyName: action.payload.companyName,
+        techStack: action.payload.techStack,
+      };
     case "purchaseItem":
       if (state.gameStage !== GameStageEnum.RUNNING) {
         return state;
