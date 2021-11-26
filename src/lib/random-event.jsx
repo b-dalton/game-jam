@@ -1,7 +1,15 @@
 const events = [
   {
-    name: "Some event",
+    name: "New investor!",
+    description:
+      "Scribbly Plibbles loves your approach to akward office parties, and has invested $5,000 in your fledling business!",
     condition: ({ gameTime }) => gameTime >= 0 && gameTime < 10000,
+    action: (state) => {
+      return {
+        ...state,
+        currency: state.currency + 5000,
+      };
+    },
   },
 ];
 

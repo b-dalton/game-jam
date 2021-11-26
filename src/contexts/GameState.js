@@ -24,8 +24,10 @@ const reducer = (state, action) => {
         return state;
       }
 
+      const newState = action.payload.action(state);
+
       return {
-        ...state,
+        ...newState,
         activeEvent: action.payload,
       };
     case "completeEvent":
