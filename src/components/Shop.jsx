@@ -5,7 +5,6 @@ import {
   ListItemIcon,
   ListItemText,
   Tooltip,
-  Typography,
 } from "@mui/material";
 import YardIcon from "@mui/icons-material/Yard";
 import CoffeeMakerIcon from "@mui/icons-material/CoffeeMaker";

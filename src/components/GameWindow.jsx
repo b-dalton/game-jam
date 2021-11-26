@@ -42,7 +42,7 @@ export const GameWindow = () => {
 
   const [tabIndex, setTabIndex] = useState(0);
 
-  const { name, image } = getPhaseState(gameTime);
+  const { image } = getPhaseState(gameTime);
 
   return (
     <Container
