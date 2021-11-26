@@ -46,6 +46,8 @@ export const Toolbar = () => {
       employeeHappiness,
       employees,
       maximumEmployees,
+      companyName,
+      techStack
     },
     dispatch,
   } = useGameState();
