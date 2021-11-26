@@ -30,6 +30,90 @@ const contracts = [
     },
   },
   {
+    id: "wonky-buildings",
+    name: "Help us develop our wonky buildings policy",
+    description:
+      "We're looking for a team of agile experts to join us to help us develop our policy for buildings that need to be more wonky. The ideal candidates will already work in a really wonky office, perhaps with low beams that pose risks to tall people too.",
+    value: 1500,
+    recurringValue: 50,
+    requiredTeamSize: 3,
+    condition: () => true,
+    action: (state) => {
+      return {
+        ...state,
+        currency: state.currency + 1500,
+        currencyChange: state.currencyChange + 50,
+        occupiedEmployees: state.occupiedEmployees + 3,
+        signedContracts: [...state.signedContracts, "wonky-buildings"],
+      };
+    },
+  },
+  {
+    id: "post-it-power-house",
+    name: "Post it power house",
+    description:
+      "We hate post its, but can't stop using them. Like literally we have post its all over the place. I can't even see my screen as I'm typing this. Help us with this addiction, please, I beg of you!",
+    value: 4000,
+    recurringValue: 30,
+    requiredTeamSize: 2,
+    condition: () => true,
+    action: (state) => {
+      return {
+        ...state,
+        currency: state.currency + 4000,
+        currencyChange: state.currencyChange + 30,
+        occupiedEmployees: state.occupiedEmployees + 2,
+        signedContracts: [...state.signedContracts, "post-it-power-house"],
+      };
+    },
+  },
+  {
+    id: "new-country",
+    name: "Craft a new country",
+    description:
+      "Look, we're as fed up of this country as you are. Let's start a new one! What could possibly go wrong?!",
+    value: 120000,
+    recurringValue: 550,
+    requiredTeamSize: 10,
+    condition: ({ gameTime }) => {
+      const { index } = getPhaseState(gameTime);
+
+      return index >= 3;
+    },
+    action: (state) => {
+      return {
+        ...state,
+        currency: state.currency + 120000,
+        currencyChange: state.currencyChange + 550,
+        occupiedEmployees: state.occupiedEmployees + 10,
+        signedContracts: [...state.signedContracts, "new-country"],
+      };
+    },
+  },
+  {
+    id: "legacy-transformation",
+    name: "Help us with our legacy transformation",
+    description:
+      "Greetings, we are the House of Lords. After much deliberation and other expensive filibustering we have concluded we are entirely ineffective and are in dire need of a complete legacy transformation. The scope of the transformation will, of course, be entirely constrained to pointless superficial elements of the House, but otherwise will be regarded as a great success. Please submit your applications by noon tomorrow. Regards, whoever the hell we are.",
+    value: 600000,
+    recurringValue: 5000,
+    requiredTeamSize: 30,
+    condition: ({ gameTime }) => {
+      const { index } = getPhaseState(gameTime);
+
+      return index >= 2;
+    },
+    action: (state) => {
+      return {
+        ...state,
+        currency: state.currency + 600000,
+        currencyChange: state.currencyChange + 5000,
+        occupiedEmployees: state.occupiedEmployees + 30,
+        signedContracts: [...state.signedContracts, "legacy-transformation"],
+      };
+    },
+  },
+  {
     id: "nasa-moon-base",
     name: "NASA Moon Base",
     description:
@@ -60,7 +144,7 @@ export const Marketplace = () => {
   const { totalWorkforceSize, occupiedEmployees, signedContracts } = state;
 
   const availableContracts = contracts.filter(
-    ({ id }) => !signedContracts.includes(id)
+    ({ id, condition }) => !signedContracts.includes(id)
   );
 
   const signedContractsList = contracts.filter(({ id }) =>

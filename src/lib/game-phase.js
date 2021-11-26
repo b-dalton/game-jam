@@ -1,6 +1,7 @@
 import officeStartup from "./images/office-startup.png";
 import officeIpo from "./images/office-ipo.png";
 import officeInternational from "./images/office-international.png";
+import officeSpace from "./images/office-space.png";
 
 const secondsToFlooredMinutes = (seconds) => {
   return Math.floor(seconds / 60);
@@ -39,7 +40,7 @@ export const getPhaseState = (gameTime) => {
   return {
     name: "Intergalactic",
     index: 4,
-    image: officeStartup,
+    image: officeSpace,
     progress: 100,
   };
 };

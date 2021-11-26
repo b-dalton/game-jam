@@ -20,6 +20,24 @@ const events = [
     },
   },
   {
+    name: "New investor!",
+    characterName: "Pibbly Scribbles",
+    description:
+      "I hate your approach to akward office parties, but and have invested $5,000 in your fledgling business anyway in the hope you might change your ways!",
+    type: "email",
+    condition: ({ gameTime }) => {
+      const { index } = getPhaseState(gameTime);
+
+      return index === 1;
+    },
+    action: (state) => {
+      return {
+        ...state,
+        currency: state.currency + 5000,
+      };
+    },
+  },
+  {
     name: "Coffee Beans now declared illegal contriband worldwide!",
     characterName: "@not.a.troll",
     description:
@@ -95,7 +113,7 @@ const events = [
 ];
 
 export const getRandomEvent = (state) => {
-  const shouldFindEvent = Math.random() < 0.02 ? true : false;
+  const shouldFindEvent = Math.random() < 0.05 ? true : false;
   // const shouldFindEvent = true;
 
   if (!shouldFindEvent) {
