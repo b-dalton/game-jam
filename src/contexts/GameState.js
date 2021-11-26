@@ -12,8 +12,9 @@ export const GameStateContext = React.createContext({});
 const initialState = {
   gameStage: GameStageEnum.LAUNCH,
   gameTime: 0,
-  currency: 1000,
-  currencyChange: 5,
+  currency: 10000,
+  currencyChange: 100,
+  employeeHappiness: 5,
   activeEvent: null,
 };
 
@@ -54,10 +55,12 @@ const reducer = (state, action) => {
         return state;
       }
 
+      const happinessMultiplier = state.employeeHappiness / 10;
+
       return {
         ...state,
         gameTime: state.gameTime + 1,
-        currency: state.currency + state.currencyChange,
+        currency: state.currency + state.currencyChange * happinessMultiplier,
       };
     case "resetTime":
       return initialState;
