@@ -10,13 +10,15 @@ import YardIcon from "@mui/icons-material/Yard";
 import CoffeeMakerIcon from "@mui/icons-material/CoffeeMaker";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import BusinessIcon from "@mui/icons-material/Business";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
 import { useGameState } from "../contexts/GameState";
+import { getPhaseState } from "../lib/game-phase";
 
 const shopItems = [
   {
     name: "Office plants",
     price: 100,
-    recurringPrice: 0,
+    recurringPrice: 4,
     description:
       "A bunch of office plants that'll make your human staff a little happier",
     icon: <YardIcon />,
@@ -51,13 +53,36 @@ const shopItems = [
     recurringPrice: 50,
     description: "Woah, a new team member! I wonder if they'll be nice?",
     icon: <PersonAddIcon />,
-    isActive: (state) => state.employees < 5,
+    isActive: (state) => state.totalWorkforceSize < 5,
     action: (state) => {
       return {
         ...state,
-        employees: state.employees + 1,
+        totalWorkforceSize: state.totalWorkforceSize + 1,
+        humanEmployees: state.humanEmployees + 1,
         currency: state.currency - 3000,
         currencyChange: state.currencyChange - 50,
+      };
+    },
+  },
+  {
+    name: "Robot worker",
+    price: 10000,
+    recurringPrice: 100,
+    description:
+      "Robot workers are expensive, but do the job of four humans (for now...!)",
+    icon: <SmartToyIcon />,
+    isActive: ({ gameTime }) => {
+      const { index } = getPhaseState(gameTime);
+
+      return index > 2;
+    },
+    action: (state) => {
+      return {
+        ...state,
+        totalWorkforceSize: state.totalWorkforceSize + 4,
+        robotEmployees: state.robotEmployees + 1,
+        currency: state.currency - 9500,
+        currencyChange: state.currencyChange - 10,
       };
     },
   },
@@ -98,7 +123,7 @@ export const Shop = () => {
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText
-                  primary={`${item.name} – $${item.price}${
+                  primary={`${item.name} – $${item.price.toLocaleString()}${
                     item.recurringPrice > 0
                       ? ` (-$${item.recurringPrice.toLocaleString()} per second)`
                       : ""
