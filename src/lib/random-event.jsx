@@ -34,8 +34,8 @@ const events = [
 ];
 
 export const getRandomEvent = (state) => {
-  // const shouldFindEvent = Math.random() < 0.02 ? true : false;
-  const shouldFindEvent = true;
+  const shouldFindEvent = Math.random() < 0.02 ? true : false;
+  // const shouldFindEvent = true;
 
   if (!shouldFindEvent) {
     return null;
